@@ -17,6 +17,10 @@ public class Game {
 
     private void run( int fieldSize, int rate){
         buildField( fieldSize, rate);
+
+        /* TODO Loop with user-request
+           TODO showField() every loop
+        */
         showField(fieldSize);
     }
 
