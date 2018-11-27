@@ -2,17 +2,18 @@ package ch.lucascherer;
 
 public class ClearField extends Field {
 
-    private int neighbourMines = '0';
+    private int neighbourMines = 0;
 
-    @Override
-    public void onClick(){
+    public ClearField(){
+        this.setValue(Integer.toString(neighbourMines));
+    }
 
-    }
-    @Override
-    public Character getValue(){
-        return ( char ) this.neighbourMines;
-    }
     public void incrementValue(){
         this.neighbourMines += 1;
+        this.setValue(Integer.toString(neighbourMines));
+    }
+    @Override
+    public void onHit(){
+
     }
 }

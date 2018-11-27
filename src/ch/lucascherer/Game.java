@@ -1,6 +1,5 @@
 package ch.lucascherer;
 
-import com.sun.org.apache.xpath.internal.operations.String;
 
 import java.util.*;
 import java.util.Random;
@@ -12,6 +11,10 @@ public class Game {
     private Random rand = new Random();
     private Properties config;
 
+    private Scanner scanner = new Scanner(System.in);
+
+    public boolean gameOver = false;
+
     public Game(){
         this.config = new Config();
         run(Integer.parseInt(this.config.getProperty("fieldSize")),
@@ -20,11 +23,25 @@ public class Game {
 
     private void run( int fieldSize, int rate){
         buildField( fieldSize, rate);
-        updateNeighbours();
-        /* TODO Loop with user-request
-           TODO showField() every loop
-        */
-        showField(fieldSize);
+
+        while (!this.gameOver){
+            clearScreen();
+            queryCoords();
+            showField(fieldSize);
+        }
+
+    }
+
+    private void queryCoords(){
+        System.out.println("Gib ein:");
+        String line = this.scanner.nextLine();
+        String[] params = line.split(" ");
+        showField(Integer.parseInt(params[0]), Integer.parseInt(params[1]));
+    }
+
+    private void showField(int y, int x){
+        Field field = (Field) this.cells.get(Arrays.asList(y,x));
+        field.setHidden(false);
     }
 
     /**
@@ -36,16 +53,19 @@ public class Game {
                 this.cells.put(Arrays.asList(i, j), randomField(rate, i, j));
             }
         }
+        updateNeighbours();
+        showField(fieldSize);
     }
 
     /**
      * prints out the field
      */
     private void showField(int fieldSize){
+        System.out.println();
         for(int i = 0; i < fieldSize; i++){
             for(int j = 0; j < fieldSize; j++){
                 Field field = (Field) this.cells.get(Arrays.asList(i, j));
-                System.out.print(field.getValue() + " ");
+                System.out.print(field.getValue() + "\t");
             }
             System.out.println();
         }
@@ -85,5 +105,9 @@ public class Game {
         // remove mine it-self
         neighbours.remove(Arrays.asList(i, j));
         return neighbours;
+    }
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 }

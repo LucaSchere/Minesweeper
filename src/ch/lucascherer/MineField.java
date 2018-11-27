@@ -2,14 +2,11 @@ package ch.lucascherer;
 
 public class MineField extends Field{
 
-    @Override
-    public void onClick(){
-
+    public MineField(){
+        this.setValue("\uD83D\uDCA3");
     }
     @Override
-    public Character getValue(){
+    public void onHit(){
 
-        return 174;
     }
-
 }
