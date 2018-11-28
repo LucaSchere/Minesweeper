@@ -1,11 +1,12 @@
 package ch.lucascherer;
 
-public class ClearField extends Field {
+public class ClearCell extends Cell {
 
     private int neighbourMines = 0;
 
-    public ClearField(){
+    public ClearCell(Coordinate coordinate){
         this.setValue(Integer.toString(neighbourMines));
+        this.coordinate = coordinate;
     }
 
     public void incrementValue(){

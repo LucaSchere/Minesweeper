@@ -1,35 +1,16 @@
 package ch.lucascherer;
 
-public abstract class Field {
+import java.util.ArrayList;
+import java.util.List;
 
+public class Field {
+    private List<Cell> cells;
 
-    private static final String DEFAULT_VALUE = "✗";
-    private boolean isHidden = true;
-
-    private String value = DEFAULT_VALUE;
-
-    public String getValue() {
-        if (!isHidden()) {
-            return this.value;
-        }else{
-            return this.getDefaultValue();
-        }
+    public Field(){
+        cells = new ArrayList<Cell>();
     }
 
-    public abstract void onHit();
-
-    public String getDefaultValue() {
-        return DEFAULT_VALUE;
-    }
-
-    public boolean isHidden() {
-        return isHidden;
-    }
-
-    public void setHidden(boolean hidden) {
-        isHidden = hidden;
-    }
-    public void setValue(String value) {
-        this.value = value;
+    public void addCell(Cell cell){
+        this.cells.add(cell);
     }
 }
