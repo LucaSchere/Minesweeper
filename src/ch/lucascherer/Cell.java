@@ -1,7 +1,7 @@
 package ch.lucascherer;
 
 public abstract class Cell {
-
+//test
 
     private static final String DEFAULT_VALUE = "✗";
     private boolean isHidden = true;
