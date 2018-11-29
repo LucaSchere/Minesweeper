@@ -7,8 +7,6 @@ import java.util.Random;
 public class Game {
 
     private HashMap<List<Integer>, Cell> cells = new HashMap<List<Integer>, Cell>();
-    private List<Coordinate> mines = new ArrayList<Coordinate>();
-    private Random rand = new Random();
     private Properties config;
     private Field field;
     private View view;
@@ -19,19 +17,19 @@ public class Game {
 
     public Game(){
         this.config = new Config();
-        this.field = new Field();
+        this.field = new Field(Integer.parseInt(this.config.getProperty("fieldSize")),Integer.parseInt(this.config.getProperty("rate")));
         this.view = new View(this.field);
-        run(Integer.parseInt(this.config.getProperty("fieldSize")),
-                Integer.parseInt(this.config.getProperty("rate")));
+        run();
     }
 
-    private void run( int fieldSize, int rate){
-        buildField( fieldSize, rate);
+    private void run(){
+        this.field.generate();
+        this.view.showField();
 
         while (!this.gameOver){
             clearScreen();
             queryCoords();
-            showField(fieldSize);
+            this.view.showField();
         }
 
     }
@@ -48,68 +46,7 @@ public class Game {
         cell.setHidden(false);
     }
 
-    /**
-     * builds the field
-     */
-    private void buildField(int fieldSize, int rate){
-        for(int x = 0; x < fieldSize; x++){
-            for(int y = 0; y < fieldSize; y++) {
-                this.cells.put(Arrays.asList(x, y), randomField(rate, new Coordinate(x, y)));
-            }
-        }
-        updateNeighbours();
-        showField(fieldSize);
-    }
-
-    /**
-     * prints out the field
-     */
-    private void showField(int fieldSize){
-        System.out.println();
-        for(int i = 0; i < fieldSize; i++){
-            for(int j = 0; j < fieldSize; j++){
-                Cell cell = (Cell) this.cells.get(Arrays.asList(i, j));
-                System.out.print(cell.getValue() + "\t");
-            }
-            System.out.println();
-        }
-    }
-
-    private Cell randomField(int rate, Coordinate coordinate){
-
-        int n = rand.nextInt(rate);
-        if (n == 0) {
-            this.mines.add(coordinate);
-            return new MineCell(coordinate);
-        }
-        return new ClearCell(coordinate);
-
-    }
-
-    private void updateNeighbours(){
-        for(Coordinate mineCoordiate : this.mines) {
-            for (List<Integer> neighbourCoordinates : this.getNeighbours(mineCoordiate.getX(), mineCoordiate.getY())) {
-                if (this.cells.get(neighbourCoordinates) instanceof ClearCell) {
-                    ClearCell cell = (ClearCell) this.cells.get(neighbourCoordinates);
-                    cell.incrementValue();
-                }
-            }
-        }
-    }
-    private List<List<Integer>> getNeighbours(int i, int j){
-        List<List<Integer>> neighbours = new ArrayList<List<Integer>>();
-        for (int x = i -1; x < i + 2; x++){
-            for(int y = j -1; y < j+ 2; y++){
-                if(y >= 0 && x >= 0){
-                    neighbours.add(Arrays.asList(x, y));
-                }
-
-            }
-        }
-        // remove mine it-self
-        neighbours.remove(Arrays.asList(i, j));
-        return neighbours;
-    }
+   
     public static void clearScreen() {
         System.out.flush();
     }
