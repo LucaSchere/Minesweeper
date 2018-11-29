@@ -4,9 +4,10 @@ public class ClearCell extends Cell {
 
     private int neighbourMines = 0;
 
-    public ClearCell(Coordinate coordinate){
+    public ClearCell(int x, int y){
         this.setValue(Integer.toString(neighbourMines));
-        this.setCoordinate(coordinate);
+        this.setX(x);
+        this.setY(y);
     }
 
     public void incrementValue(){
@@ -15,6 +16,6 @@ public class ClearCell extends Cell {
     }
     @Override
     public void onHit(){
-
+        this.setHidden(false);
     }
 }

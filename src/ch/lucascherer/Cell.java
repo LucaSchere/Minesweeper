@@ -2,20 +2,25 @@ package ch.lucascherer;
 
 public abstract class Cell {
 
-	private static final String DEFAULT_VALUE = "X";
+	private static final String DEFAULT_VALUE = " ";
 	private boolean isHidden = true;
-	private Coordinate coordinate;
+    private int x;
+	private int y;
 	private String value = DEFAULT_VALUE;
 
 	public String getValue() {
-		//if (!isHidden()) {
+		if (!isHidden()) {
 			return this.value;
-		//} else {
-		//	return this.getDefaultValue();
-		//}
+		} else {
+			return this.getDefaultValue();
+		}
 	}
 
 	public abstract void onHit();
+
+	public void onMark(){
+	    this.setValue("!");
+    }
 
 	public String getDefaultValue() {
 		return DEFAULT_VALUE;
@@ -33,11 +38,21 @@ public abstract class Cell {
 		this.value = value;
 	}
 
-	public Coordinate getCoordinate() {
-		return coordinate;
-	}
+    public int getX() {
+        return x;
+    }
 
-	public void setCoordinate(Coordinate coordinate) {
-		this.coordinate = coordinate;
-	}
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+
 }
