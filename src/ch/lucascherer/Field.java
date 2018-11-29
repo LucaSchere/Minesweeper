@@ -52,11 +52,9 @@ public class Field {
 	private void updateNeighbours() {
 		for (MineCell mine : this.mines) {
 			for (Coordinate neighbourCoordinates : this.getNeighbours(mine)) {
-			
 				 if (this.cells[neighbourCoordinates.getX()][neighbourCoordinates.getY()] instanceof ClearCell) { ClearCell
 				 cell = (ClearCell) this.cells[neighbourCoordinates.getX()][neighbourCoordinates.getY()];
 				 cell.incrementValue(); }
-				 
 			}
 		}
 	}
@@ -67,7 +65,7 @@ public class Field {
 		List<Coordinate> neighboursCoordinates = new ArrayList<Coordinate>();
 		for (int x = mineX - 1; x < mineX + 2; x++) {
 			for (int y = mineY - 1; y < mineY + 2; y++) {
-				if (y >= 0 && x >= 0) {
+				if (y >= 0 && x >= 0 && x <= 7 && y <= 7) {
 					neighboursCoordinates.add(new Coordinate(x, y));
 				}
 
