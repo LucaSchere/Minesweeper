@@ -7,7 +7,7 @@ import java.util.Random;
 public class Game {
 
     private HashMap<List<Integer>, Cell> cells = new HashMap<List<Integer>, Cell>();
-    private List<Integer[]> mines = new ArrayList<Integer[]>();
+    private List<Coordinate> mines = new ArrayList<Coordinate>();
     private Random rand = new Random();
     private Properties config;
     private Field field;
@@ -79,7 +79,7 @@ public class Game {
 
         int n = rand.nextInt(rate);
         if (n == 0) {
-            //this.mines.add(new Integer[]{i, j});
+            this.mines.add(coordinate);
             return new MineCell(coordinate);
         }
         return new ClearCell(coordinate);
@@ -87,8 +87,8 @@ public class Game {
     }
 
     private void updateNeighbours(){
-        for(Integer[] mineCoordiate : this.mines) {
-            for (List<Integer> neighbourCoordinates : this.getNeighbours(mineCoordiate[0], mineCoordiate[1])) {
+        for(Coordinate mineCoordiate : this.mines) {
+            for (List<Integer> neighbourCoordinates : this.getNeighbours(mineCoordiate.getX(), mineCoordiate.getY())) {
                 if (this.cells.get(neighbourCoordinates) instanceof ClearCell) {
                     ClearCell cell = (ClearCell) this.cells.get(neighbourCoordinates);
                     cell.incrementValue();
@@ -111,7 +111,6 @@ public class Game {
         return neighbours;
     }
     public static void clearScreen() {
-        System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 }

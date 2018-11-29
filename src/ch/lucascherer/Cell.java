@@ -3,7 +3,7 @@ package ch.lucascherer;
 public abstract class Cell {
 //test
 
-    private static final String DEFAULT_VALUE = "✗";
+    private static final String DEFAULT_VALUE = "X";
     private boolean isHidden = true;
     public Coordinate coordinate;
 
