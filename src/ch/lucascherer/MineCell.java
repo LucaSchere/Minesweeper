@@ -4,7 +4,7 @@ public class MineCell extends Cell {
 
     public MineCell(Coordinate coordinate){
         this.setValue("\uD83D\uDCA3");
-        this.coordinate = coordinate;
+        this.setCoordinate(coordinate);
     }
     @Override
     public void onHit(){

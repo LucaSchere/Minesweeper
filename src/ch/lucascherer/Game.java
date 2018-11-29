@@ -6,7 +6,6 @@ import java.util.Random;
 
 public class Game {
 
-    private HashMap<List<Integer>, Cell> cells = new HashMap<List<Integer>, Cell>();
     private Properties config;
     private Field field;
     private View view;
@@ -42,8 +41,8 @@ public class Game {
     }
 
     private void showField(int y, int x){
-        Cell cell = (Cell) this.cells.get(Arrays.asList(y,x));
-        cell.setHidden(false);
+        //Cell cell = (Cell) this.cells.get(Arrays.asList(y,x));
+        //cell.setHidden(false);
     }
 
    

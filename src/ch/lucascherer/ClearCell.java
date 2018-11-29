@@ -6,7 +6,7 @@ public class ClearCell extends Cell {
 
     public ClearCell(Coordinate coordinate){
         this.setValue(Integer.toString(neighbourMines));
-        this.coordinate = coordinate;
+        this.setCoordinate(coordinate);
     }
 
     public void incrementValue(){

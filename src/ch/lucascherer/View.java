@@ -1,6 +1,5 @@
 package ch.lucascherer;
 
-import java.util.Arrays;
 
 public class View {
 
@@ -11,12 +10,13 @@ public class View {
     }
     
     public void showField() {
-    	int i = 0;
-    	System.out.println();
-        for(Cell cell : this.field.getCells()){
-        	if(i % this.field.getFieldsize() == 0) System.out.println();
-            System.out.print(cell.getValue());
-            i++;
-        }
+    	Cell[][] cells = this.field.getCells();
+    	for(int i = 0; i < this.field.getFieldsize(); i++) {
+    		for(int j = 0; j < this.field.getFieldsize(); j++) {
+    			System.out.print(cells[i][j].getValue());
+    		}
+    		System.out.println();
+    	}
+   
     }
 }
