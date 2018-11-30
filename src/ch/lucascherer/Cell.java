@@ -1,58 +1,77 @@
 package ch.lucascherer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Cell {
 
-	private static final String DEFAULT_VALUE = " ";
-	private boolean isHidden = true;
-    private int x;
-	private int y;
-	private String value = DEFAULT_VALUE;
+    private final static String hiddenValue = " ";
+    private final static String markedvalue = "!";
+    private boolean isHidden = true;
+    private boolean isMarked = false;
+    private Coordinate coordinate;
+    private String value = hiddenValue;
+    private static RandomCellPicker randomCellPicker = new RandomCellPicker();
+    private static List<Cell> cells = new ArrayList<Cell>();
 
-	public String getValue() {
-		if (!isHidden()) {
-			return this.value;
-		} else {
-			return this.getDefaultValue();
-		}
-	}
-
-	public abstract void onHit();
-
-	public void onMark(){
-	    this.setValue("!");
+    public static Cell at(Coordinate coordinate){
+        for(Cell cell : cells){
+            if(cell.getCoordinate().getX() == coordinate.getX() && cell.getCoordinate().getY() == coordinate.getY()){
+                return cell;
+            }
+        }
+        return randomCellPicker.randomCell( coordinate, cells);
     }
 
-	public String getDefaultValue() {
-		return DEFAULT_VALUE;
-	}
-
-	public boolean isHidden() {
-		return isHidden;
-	}
-
-	public void setHidden(boolean hidden) {
-		isHidden = hidden;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
-	}
-
-    public int getX() {
-        return x;
+    public abstract void onHit();
+    public void onMark() {
+        this.setMarked(true);
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public String getOutput() {
+        if (isHidden()) {
+            if (isMarked()) {
+                return markedvalue;
+            }
+            return hiddenValue;
+        } else {
+            return value;
+        }
     }
 
-    public int getY() {
-        return y;
+    public boolean isHidden() {
+        return isHidden;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public void setHidden(boolean hidden) {
+        isHidden = hidden;
     }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+
+    public boolean isMarked() {
+        return isMarked;
+    }
+
+    public void setMarked(boolean marked) {
+        isMarked = marked;
+    }
+
+    public Coordinate getCoordinate() {
+        return coordinate;
+    }
+
+    public void setCoordinate(Coordinate coordinate) {
+        this.coordinate = coordinate;
+    }
+
+    public static List<Cell> getCells() {
+        return cells;
+    }
+
 
 
 }

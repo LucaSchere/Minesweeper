@@ -1,22 +1,17 @@
 package ch.lucascherer;
 
-import java.io.IOException;
-import java.util.*;
-
 public class Game {
 
-    private Config config;
     private Field field;
     private View view;
     private InputRequester inputRequester;
 
     private boolean gameOver = false;
 
-    public Game(Config config){
-        this.config = config;
-        this.field = new Field(this.config.getFieldSize(), this.config.getRate());
+    public Game(){
+        this.field = new Field();
         this.view = new View(this.field);
-        this.inputRequester = new InputRequester();
+        this.inputRequester = new InputRequester(this.field);
         run();
     }
 
@@ -26,12 +21,16 @@ public class Game {
             queryCoords();
             this.view.showField();
         }
-
     }
 
     private void queryCoords(){
-        String[] params = inputRequester.request();
-        Cell cell = this.field.getCells()[Integer.parseInt(params[0])][Integer.parseInt(params[1])];
-        cell.onHit();
+        Response response = inputRequester.request();
+        Cell cell = Cell.at(response.getCoordinate());
+        Command command = response.getCommand();
+        if(command == Command.MARK){
+            cell.onMark();
+        }else if(command == Command.HIT){
+            cell.onHit();
+        }
     }
 }

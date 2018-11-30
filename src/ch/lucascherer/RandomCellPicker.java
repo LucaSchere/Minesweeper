@@ -1,25 +1,26 @@
 package ch.lucascherer;
 
+import java.util.List;
 import java.util.Random;
 
 public class RandomCellPicker {
 
     private Random rand = new Random();
     private double rate;
-    private Field field;
 
-    public RandomCellPicker(double rate, Field field) {
-        this.rate = rate;
-        this.field = field;
+    public RandomCellPicker() {
+        this.rate = Config.getInstance().getRate();
     }
 
-    public Cell randomCell(int x, int y) {
-        if (rand.nextDouble() <= this.rate/100){
-            MineCell mineCell = new MineCell(x, y);
-            field.addMine(mineCell);
+    public Cell randomCell(Coordinate coordinate, List<Cell> cells) {
+        if (rand.nextDouble() <= this.rate / 100) {
+            MineCell mineCell = new MineCell(coordinate);
+            cells.add(mineCell);
             return mineCell;
         }
-        return new ClearCell(x, y);
+        ClearCell clearCell = new ClearCell(coordinate);
+        cells.add(clearCell);
+        return clearCell;
 
     }
 

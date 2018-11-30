@@ -8,11 +8,13 @@ import java.util.Properties;
 
 public class Config extends Properties{
 
+    private static Config instance = new Config();
+
     private static final String PROPERTIES_FILE = "src\\ch\\lucascherer\\app.properties";
     private int fieldSize;
     private double rate;
 
-    public Config(){
+    private Config(){
 
         InputStream input = null;
         try {
@@ -33,17 +35,12 @@ public class Config extends Properties{
     public int getFieldSize() {
         return fieldSize;
     }
-
-    public void setFieldSize(int fieldSize) {
-        this.fieldSize = fieldSize;
-    }
-
     public double getRate() {
         return rate;
     }
 
-    public void setRate(double rate) {
-        this.rate = rate;
+    public static Config getInstance() {
+        return instance;
     }
 
 }
