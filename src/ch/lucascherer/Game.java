@@ -11,7 +11,7 @@ public class Game {
     protected Game() {
         this.field = new Field();
         this.view = new View(this.field);
-        this.inputRequester = new InputRequester(this.field);
+        this.inputRequester = new InputRequester();
         run();
     }
 

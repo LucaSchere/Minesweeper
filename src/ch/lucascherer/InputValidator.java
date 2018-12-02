@@ -4,22 +4,19 @@ import ch.lucascherer.Exceptions.UnknownCommandException;
 import ch.lucascherer.Exceptions.UnreachableCellException;
 import ch.lucascherer.Exceptions.WrongFormatException;
 
-import java.io.IOException;
 
 public class InputValidator {
 
-    private Field field;
 
-    public InputValidator(Field field) {
-        this.field = field;
+    public InputValidator() {
     }
 
     public Command validate(String[] s) throws WrongFormatException, UnreachableCellException, UnknownCommandException {
+        int fieldSize = Config.getInstance().getFieldSize();
         if (s.length == 3 && isNumeric(s[1]) && isNumeric(s[2])) {
             int s1 = Integer.parseInt(s[1]);
             int s2 = Integer.parseInt(s[2]);
-
-            if (s1 >= 0 && s1 < this.field.getFieldsize() && s2 >= 0 && s2 < this.field.getFieldsize()) {
+            if (s1 >= 0 && s1 < fieldSize&& s2 >= 0 && s2 < fieldSize) {
 
 
                 if (s[0].toUpperCase().equals("M")) {
@@ -30,11 +27,11 @@ public class InputValidator {
                     throw new UnknownCommandException();
                 }
             } else {
-                throw new UnreachableCellException(this.field.getFieldsize());
+                throw new UnreachableCellException(fieldSize);
             }
 
         } else {
-            throw new WrongFormatException(this.field.getFieldsize());
+            throw new WrongFormatException(fieldSize);
         }
     }
 
