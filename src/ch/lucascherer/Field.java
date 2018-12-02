@@ -7,14 +7,7 @@ import java.util.List;
 
 public class Field {
     private int fieldSize = Config.getInstance().getFieldSize();
-    private double rate = Config.getInstance().getRate();
-    private List<MineCell> mines;
-
-    public Field() {
-        mines = new ArrayList<MineCell>();
-    }
-
-    public void generate() {
+        public void generate() {
         for (int y = 0; y < this.fieldSize; y++) {
             for (int x = 0; x < fieldSize; x++) {
                 Cell.at(Coordinate.of(x, y));
@@ -59,7 +52,4 @@ public class Field {
         return this.fieldSize;
     }
 
-    public void addMine(MineCell mine) {
-        this.mines.add(mine);
-    }
 }

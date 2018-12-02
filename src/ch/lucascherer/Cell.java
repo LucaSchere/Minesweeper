@@ -6,7 +6,7 @@ import java.util.List;
 public abstract class Cell {
 
     private final static String hiddenValue = " ";
-    private final static String markedvalue = "!";
+    private final static String markedValue = "!";
     private boolean isHidden = true;
     private boolean isMarked = false;
     private Coordinate coordinate;
@@ -14,24 +14,39 @@ public abstract class Cell {
     private static RandomCellPicker randomCellPicker = new RandomCellPicker();
     private static List<Cell> cells = new ArrayList<Cell>();
 
-    public static Cell at(Coordinate coordinate){
-        for(Cell cell : cells){
-            if(cell.getCoordinate().getX() == coordinate.getX() && cell.getCoordinate().getY() == coordinate.getY()){
+    public static Cell at(Coordinate coordinate) {
+        for (Cell cell : cells) {
+            if (cell.getCoordinate().getX() == coordinate.getX() && cell.getCoordinate().getY() == coordinate.getY()) {
                 return cell;
             }
         }
-        return randomCellPicker.randomCell( coordinate, cells);
+        return randomCellPicker.randomCell(coordinate, cells);
+    }
+
+    public static void clear() {
+        cells.clear();
+    }
+
+    public static boolean allMinesMarked() {
+        int i = 0;
+        int o = 0;
+        for (Cell cell : cells) {
+            if (cell instanceof MineCell) {
+                o++;
+                if (cell.isMarked()) i++;
+            }
+        }
+        return i == o;
     }
 
     public abstract void onHit();
-    public void onMark() {
-        this.setMarked(true);
-    }
+
+    public abstract void onMark();
 
     public String getOutput() {
         if (isHidden()) {
             if (isMarked()) {
-                return markedvalue;
+                return markedValue;
             }
             return hiddenValue;
         } else {
@@ -45,10 +60,6 @@ public abstract class Cell {
 
     public void setHidden(boolean hidden) {
         isHidden = hidden;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
     }
 
 
@@ -68,10 +79,17 @@ public abstract class Cell {
         this.coordinate = coordinate;
     }
 
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
     public static List<Cell> getCells() {
         return cells;
     }
-
 
 
 }
