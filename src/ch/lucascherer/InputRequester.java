@@ -48,8 +48,8 @@ public class InputRequester {
         System.out.println("Neustarten? (J/N)");
         String answer = this.scanner.nextLine();
         if(answer.toUpperCase().equals("J")){
-            return new Response(Answer.YES, RequestStatus.SUCCES);
+            return new Response(true, RequestStatus.SUCCES);
         }
-        return new Response(Answer.NO, RequestStatus.SUCCES);
+        return new Response(false, RequestStatus.SUCCES);
     }
 }

@@ -21,7 +21,7 @@ public class Game {
             this.view.showField();
             queryCoords();
             if(gameOver){
-                if(inputRequester.request(Request.RESTART).getAnswer() == Answer.YES){
+                if(inputRequester.request(Request.RESTART).isYes()){
                     restart();
                     Cell.clear();
                     this.field.generate();
