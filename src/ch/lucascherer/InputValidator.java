@@ -1,8 +1,6 @@
 package ch.lucascherer;
 
-import ch.lucascherer.Exceptions.UnknownCommandException;
-import ch.lucascherer.Exceptions.UnreachableCellException;
-import ch.lucascherer.Exceptions.WrongFormatException;
+import ch.lucascherer.Exceptions.*;
 
 
 public class InputValidator {

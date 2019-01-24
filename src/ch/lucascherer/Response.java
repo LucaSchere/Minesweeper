@@ -5,7 +5,7 @@ public class Response {
     private Command command;
     private RequestStatus status;
     private Coordinate coordinate;
-    private boolean yes;
+    private boolean answerIsYes;
 
     public  Response(Command command, Coordinate coordinate, RequestStatus status){
         this.command = command;
@@ -18,7 +18,7 @@ public class Response {
     }
     public Response(boolean yes, RequestStatus status){
         this.status = status;
-        this.yes = yes;
+        this.answerIsYes = yes;
     }
 
     public Command getCommand() {
@@ -34,7 +34,7 @@ public class Response {
     }
 
     public boolean isYes(){
-        return yes;
+        return answerIsYes;
     }
 
 }
